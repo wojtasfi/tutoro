@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="full" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Registration</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/the-big-picture.css" rel="stylesheet"/>
+    <link href="css/registration.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <form class="well well-sm form-horizontal" method="post" th:object="${tutor}"
+          th:action="@{/register}">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Registration</legend>
+
+            <!-- Text input-->
+
+
+            <label class="col-md-4 control-label">First Name</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="name" th:text="${tutor.name}"></div>
+            </div>
+
+            <label class="col-md-4 control-label">First Name</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="lastName" th:text="${tutor.lastName}"></div>
+            </div>
+
+            <label class="col-md-4 control-label">First Name</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="login" th:text="${tutor.login}"></div>
+            </div>
+
+            <label class="col-md-4 control-label">First Name</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="password" th:text="${tutor.password}"></div>
+            </div>
+
+            <label class="col-md-4 control-label">First Name</label>
+            <div class="col-md-4 inputGroupContainer">
+                <div class="email" th:text="${tutor.email}"></div>
+            </div>
+
+
+            <!-- Button
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-success">Register</button>
+                </div>
+            </div>-->
+
+        </fieldset>
+    </form>
+</div>
+<script src="js/registration.js"></script>
+</body>
+
+
+</html>
