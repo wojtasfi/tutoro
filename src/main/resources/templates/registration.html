@@ -14,9 +14,9 @@
     <title>Registration</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/the-big-picture.css" rel="stylesheet"/>
-    <link href="css/registration.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/the-big-picture.css" rel="stylesheet"/>
+    <link href="/css/registration.css" rel="stylesheet"/>
 
 </head>
 
@@ -26,7 +26,7 @@
 <div class="container">
 
     <form class="well well-sm form-horizontal" method="post" th:object="${tutor}"
-          th:action="@{/register}">
+          th:action="@{/tutor/register}">
         <fieldset>
 
             <!-- Form Name -->
@@ -91,6 +91,18 @@
                 </div>
             </div>
 
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">Skype</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                        <input name="skype" placeholder="Skype" class="form-control" type="text"
+                               th:field="*{skype}"/>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Button -->
             <div class="form-group">
@@ -104,6 +116,11 @@
     </form>
 </div>
 <script src="js/registration.js"></script>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 
 

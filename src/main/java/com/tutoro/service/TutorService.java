@@ -1,6 +1,8 @@
 package com.tutoro.service;
 
+import com.tutoro.dao.SkillRepository;
 import com.tutoro.dao.TutorRepository;
+import com.tutoro.entities.Skill;
 import com.tutoro.entities.Tutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class TutorService {
     @Autowired
     TutorRepository tutorRepository;
 
+    @Autowired
+    SkillRepository skillRepository;
+
     public Tutor saveTutor(Tutor tutor) {
         tutorRepository.save(tutor);
         return tutor;
@@ -24,5 +29,11 @@ public class TutorService {
     public Tutor findByLogin(String login) {
         Tutor tutor = tutorRepository.findByLogin(login);
         return tutor;
+    }
+
+    public void addSkill(Skill skill, Tutor tutor) {
+        System.out.print("Skill: " + skill.toString() + " Tutor: " + tutor.toString());
+        tutor.addSkill(skill);
+        tutorRepository.save(tutor);
     }
 }

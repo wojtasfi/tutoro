@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="full" lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Registration</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/the-big-picture.css" rel="stylesheet"/>
+    <link href="/css/registration.css" rel="stylesheet"/>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <form class="well well-sm form-horizontal" method="post" th:object="${skillForm}"
+          th:action="@{/skill/addskill}">
+        <fieldset>
+
+            <!-- Form Name -->
+            <legend>Add Skill</legend>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label">Name</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="name" placeholder="Name" class="form-control" type="text"
+                               th:field="*{name}"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label">Tag</label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="tag" placeholder="Tag" class="form-control" type="text" th:field="*{tag}"/>
+                    </div>
+                    <div>
+                        <input type="hidden" th:field="*{skillId}"/>
+                        <button type="submit" class="btn btn-primary btn-xs" value="tag" name="action">Add Tag</button>
+                    </div>
+                </div>
+            </div>
+
+            <ul th:each="tag : ${skillForm.tags}">
+                <li th:text="${tag}"></li>
+            </ul>
+
+            <!-- Button -->
+            <div class="form-group">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-4">
+
+                    <button type="submit" class="btn btn-success" value="skill" name="action">Add Skill</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+<script src="js/registration.js"></script>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+
+
+</html>

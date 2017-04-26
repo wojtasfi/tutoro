@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="full" lang="en"
->
+      xmlns:th="http://www.thymeleaf.org">
 <!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
 
 <head>
@@ -11,13 +11,14 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>The Big Picture - Start Bootstrap Template</title>
+    <title>Profile</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom CSS -->
-    <link href="css/the-big-picture.css" rel="stylesheet"/>
+    <link href="/css/the-big-picture.css" rel="stylesheet"/>
+    <link href="/css/profile.css" rel="stylesheet"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,17 +66,35 @@
 
 <!-- Page Content -->
 <div class="container">
+    <div class="row">
 
-    <div class="logo">
-        <a href="/"> <img src="images/logo.png" class="img-responsive center-block"></img></a></div>
-    <div class="text-center">
-        <a href="/login" class="btn btn-primary">Login</a> | <a href="/tutor/register"
-                                                                class="btn btn-primary">Register</a>
+        <div class="well well-sm">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <img src="http://placehold.it/380x500" alt="" class="img-rounded img-responsive"/>
+                </div>
+                <div class="col-sm-6 col-md-8">
+                    <h4>
+                        <span th:text="${tutor.login}"></span></h4>
+                    <small><span th:text="${tutor.name}"></span> <span th:text="${tutor.lastName}"></span></small>
+                    <p>
+                        <i class="glyphicon glyphicon-envelope"></i><span th:text="${tutor.email}"></span>
+                        <br/>
+                        <i class="glyphicon glyphicon-earphone"></i><span th:text="${tutor.skype}"></span>
+                        <br/></p>
+                    Skills:
+                    <ul th:each="skill : ${tutor.skills}">
+                        <li th:text="${skill.name}"></li>
+                    </ul>
+
+                    <a th:href="@{/skill/addskill/} + ${tutor.login}" class="btn btn-primary btn-xs">Add Skill</a>
+                </div>
+
+
+            </div>
+        </div>
 
     </div>
-
-
-    <!-- /.row -->
 </div>
 <!-- /.container -->
 

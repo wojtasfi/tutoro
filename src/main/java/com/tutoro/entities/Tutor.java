@@ -1,9 +1,8 @@
 package com.tutoro.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by wojci on 4/15/2017.
@@ -19,6 +18,11 @@ public class Tutor {
     private String login;
     private String password;
     private String email;
+    private String skype;
+
+
+    @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
+    private Set<Skill> skills = new HashSet<>();
 
     @Override
     public String toString() {
@@ -36,6 +40,9 @@ public class Tutor {
 
     }
 
+    public void addSkill(Skill skill) {
+        skills.add(skill);
+    }
     public String getName() {
         return name;
     }
@@ -74,5 +81,29 @@ public class Tutor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSkype() {
+        return skype;
+    }
+
+    public void setSkype(String skype) {
+        this.skype = skype;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
     }
 }
