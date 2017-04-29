@@ -84,8 +84,13 @@
                         <br/></p>
                     Skills:
                     <ul th:each="skill : ${tutor.skills}">
-                        <li th:text="${skill.name}"></li>
+                        <li>
+                            <span th:text="${skill.name}"></span>
+                            <a th:href="@{/skill/editSkill(skillId=${skill.id},login=${tutor.login})}">
+                                <span class="glyphicon glyphicon-edit"></span></a>
+                        </li>
                     </ul>
+
 
                     <a th:href="@{/skill/addskill/} + ${tutor.login}" class="btn btn-primary btn-xs">Add Skill</a>
                 </div>

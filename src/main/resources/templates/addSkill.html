@@ -16,7 +16,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/the-big-picture.css" rel="stylesheet"/>
-    <link href="/css/registration.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"
+          rel="stylesheet"/>
 
 </head>
 
@@ -25,7 +26,7 @@
 
 <div class="container">
 
-    <form class="well well-sm form-horizontal" method="post" th:object="${skillForm}"
+    <form class="well well-sm form-horizontal" method="post" th:object="${skillForm}" id="skill-form"
           th:action="@{/skill/addskill}">
         <fieldset>
 
@@ -49,25 +50,15 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
-                        <input name="tag" placeholder="Tag" class="form-control" type="text" th:field="*{tag}"/>
+                        <input name="tag" type="text" data-role="tagsinput"
+                               th:field="*{tags}"/>
                     </div>
                     <div>
                         <input type="hidden" th:field="*{skillId}"/>
-                        <button type="submit" class="btn btn-primary btn-xs" value="tag" name="action">Add Tag</button>
+
                     </div>
                 </div>
             </div>
-
-            <ul th:each="tag : ${skillForm.tags}" class="list-inline">
-
-                <li>
-                    <span th:text="${tag}"></span>
-                    <a th:href="@{/skill/deletetag(skillId=${skillForm.skillId},tag=${tag})}">
-                        <span class="glyphicon glyphicon-remove"></span></a>
-                </li>
-            </ul>
-
-            <!-- Button -->
             <div class="form-group">
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4">
@@ -79,11 +70,13 @@
         </fieldset>
     </form>
 </div>
-<!-- jQuery -->
-<script src="/js/jquery.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
+<script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js.map"></script>
+
 </body>
 
 

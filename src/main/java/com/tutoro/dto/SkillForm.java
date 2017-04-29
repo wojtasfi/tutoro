@@ -2,9 +2,6 @@ package com.tutoro.dto;
 
 import com.tutoro.entities.Skill;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by wojci on 4/25/2017.
  */
@@ -14,9 +11,9 @@ public class SkillForm {
     private int skillId;
     private String name;
     private String tag;
-    Set<String> tags = new HashSet<>();
+    String tags;
 
-    public Set<String> getTags() {
+    public String getTags() {
         return tags;
     }
 
@@ -61,7 +58,7 @@ public class SkillForm {
         this.tag = tag;
     }
 
-    public void setTags(Set<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
 }

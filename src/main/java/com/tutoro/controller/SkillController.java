@@ -12,6 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by wojci on 4/26/2017.
  */
@@ -41,14 +45,17 @@ public class SkillController {
         return "addSkill";
     }
 
-    @RequestMapping(value = "addskill/{login}/{skillId}", method = RequestMethod.GET)
-    public String editSkillPage(@PathVariable String login, @PathVariable int skillId, Model model) {
+    @RequestMapping(value = "editSkill", method = RequestMethod.GET)
+    public String editSkillPage(@RequestParam String login, @RequestParam int skillId, Model model) {
         SkillForm skillForm = new SkillForm();
         Skill skill = skillService.getSkillById(skillId);
 
         skillForm.setSkillId(skillId);
         skillForm.setName(skill.getName());
-        skillForm.setTags(skill.getTags());
+
+        String[] tags = skill.getTags().toArray(new String[skill.getTags().size()]);
+
+        skillForm.setTags(Arrays.toString(tags));
 
         model.addAttribute("skillForm", skillForm);
 
@@ -57,41 +64,20 @@ public class SkillController {
 
     @RequestMapping(value = "addskill", method = RequestMethod.POST)
     public String addSkill(@ModelAttribute SkillForm skillForm,
-                           @RequestParam String action,
                            Model model) {
 
         Skill skill = skillService.getSkillById(skillForm.getSkillId());
+        skill.setName(skillForm.getName());
 
-        if (action.equals("tag")) {
+        String[] stringTags = skillForm.getTags().split(",");
+        Set<String> tags = new HashSet<>(Arrays.asList(stringTags));
+        skill.setTags(tags);
+        LOGGER.info(skill.toString());
 
-            skill.addTag(skillForm.getTag());
-            skill.setName(skillForm.getName());
-            skillService.saveSkill(skill);
-
-            skillForm.setTag(null);
-            skillForm.setTags(skill.getTags());
-            model.addAttribute("skillForm", skillForm);
-
-            return "addskill";
-
-        } else if (action.equals("skill")) {
-            tutorService.addSkill(skill, skill.getTutor());
-            skillService.saveSkill(skill);
-            return "redirect:/tutor/profile/" + skill.getTutor().getLogin();
-        }
-        return "addskill";
-    }
-
-    @RequestMapping(value = "deletetag", method = RequestMethod.GET)
-    public String deleteTag(@RequestParam String tag,
-                            @RequestParam int skillId) {
-
-
-        Skill skill = skillService.getSkillById(skillId);
-        skill.removeTag(tag);
+        tutorService.addSkill(skill, skill.getTutor());
         skillService.saveSkill(skill);
-        LOGGER.info(tag + skillId);
+        return "redirect:/tutor/profile/" + skill.getTutor().getLogin();
 
-        return "redirect:/skill/addskill/" + skill.getTutor().getLogin() + "/" + skillId;
     }
+
 }
