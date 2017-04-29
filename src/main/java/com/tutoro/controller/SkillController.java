@@ -5,6 +5,8 @@ import com.tutoro.entities.Skill;
 import com.tutoro.entities.Tutor;
 import com.tutoro.service.SkillService;
 import com.tutoro.service.TutorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ public class SkillController {
     @Autowired
     private SkillService skillService;
 
+    private static Logger LOGGER = LoggerFactory.getLogger(SkillController.class);
 
     @RequestMapping(value = "addskill/{login}", method = RequestMethod.GET)
     public String addSkillPage(@PathVariable String login, Model model) {
@@ -33,6 +36,20 @@ public class SkillController {
         int skillId = skillService.saveSkill(skill).getId();
 
         skillForm.setSkillId(skillId);
+        model.addAttribute("skillForm", skillForm);
+
+        return "addSkill";
+    }
+
+    @RequestMapping(value = "addskill/{login}/{skillId}", method = RequestMethod.GET)
+    public String editSkillPage(@PathVariable String login, @PathVariable int skillId, Model model) {
+        SkillForm skillForm = new SkillForm();
+        Skill skill = skillService.getSkillById(skillId);
+
+        skillForm.setSkillId(skillId);
+        skillForm.setName(skill.getName());
+        skillForm.setTags(skill.getTags());
+
         model.addAttribute("skillForm", skillForm);
 
         return "addSkill";
@@ -63,5 +80,18 @@ public class SkillController {
             return "redirect:/tutor/profile/" + skill.getTutor().getLogin();
         }
         return "addskill";
+    }
+
+    @RequestMapping(value = "deletetag", method = RequestMethod.GET)
+    public String deleteTag(@RequestParam String tag,
+                            @RequestParam int skillId) {
+
+
+        Skill skill = skillService.getSkillById(skillId);
+        skill.removeTag(tag);
+        skillService.saveSkill(skill);
+        LOGGER.info(tag + skillId);
+
+        return "redirect:/skill/addskill/" + skill.getTutor().getLogin() + "/" + skillId;
     }
 }

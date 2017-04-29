@@ -32,7 +32,6 @@ public class TutorService {
     }
 
     public void addSkill(Skill skill, Tutor tutor) {
-        System.out.print("Skill: " + skill.toString() + " Tutor: " + tutor.toString());
         tutor.addSkill(skill);
         tutorRepository.save(tutor);
     }

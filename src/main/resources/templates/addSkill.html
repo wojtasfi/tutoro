@@ -37,7 +37,7 @@
                 <label class="col-md-4 control-label">Name</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-heart-empty"></i></span>
                         <input name="name" placeholder="Name" class="form-control" type="text"
                                th:field="*{name}"/>
                     </div>
@@ -48,7 +48,7 @@
                 <label class="col-md-4 control-label">Tag</label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
                         <input name="tag" placeholder="Tag" class="form-control" type="text" th:field="*{tag}"/>
                     </div>
                     <div>
@@ -58,8 +58,13 @@
                 </div>
             </div>
 
-            <ul th:each="tag : ${skillForm.tags}">
-                <li th:text="${tag}"></li>
+            <ul th:each="tag : ${skillForm.tags}" class="list-inline">
+
+                <li>
+                    <span th:text="${tag}"></span>
+                    <a th:href="@{/skill/deletetag(skillId=${skillForm.skillId},tag=${tag})}">
+                        <span class="glyphicon glyphicon-remove"></span></a>
+                </li>
             </ul>
 
             <!-- Button -->
@@ -67,19 +72,18 @@
                 <label class="col-md-4 control-label"></label>
                 <div class="col-md-4">
 
-                    <button type="submit" class="btn btn-success" value="skill" name="action">Add Skill</button>
+                    <button type="submit" class="btn btn-success" value="skill" name="action">Save Skill</button>
                 </div>
             </div>
 
         </fieldset>
     </form>
 </div>
-<script src="js/registration.js"></script>
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
+<script src="/js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 
 

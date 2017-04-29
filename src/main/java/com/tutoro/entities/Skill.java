@@ -80,7 +80,10 @@ public class Skill {
     }
 
     public void addTag(String tag) {
-        System.out.println(tags.toString());
         tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
     }
 }
