@@ -33,7 +33,6 @@ public class SkillController {
         int skillId = skillService.saveSkill(skill).getId();
 
         skillForm.setSkillId(skillId);
-        System.out.println(skillForm.toString());
         model.addAttribute("skillForm", skillForm);
 
         return "addSkill";

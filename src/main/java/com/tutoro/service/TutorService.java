@@ -36,4 +36,12 @@ public class TutorService {
         tutor.addSkill(skill);
         tutorRepository.save(tutor);
     }
+
+    public boolean checkIfTutorExists(String login) {
+        Tutor tutor = tutorRepository.findByLogin(login);
+        if (tutor == null) {
+            return false;
+        }
+        return true;
+    }
 }

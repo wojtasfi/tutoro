@@ -1,4 +1,4 @@
-  $(document).ready(function() {
+$(document).ready(function() {
     $('#contact_form').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
         feedbackIcons: {
@@ -9,7 +9,7 @@
         fields: {
             first_name: {
                 validators: {
-                        stringLength: {
+stringLength: {
                         min: 2,
                     },
                         notEmpty: {
@@ -27,6 +27,26 @@
                     }
                 }
             },
+            login: {
+                            validators: {
+                                 stringLength: {
+                                    min: 2,
+                                },
+                                notEmpty: {
+                                    message: 'Please supply your login'
+                                }
+                            }
+                        },
+            password: {
+                            validators: {
+                                 stringLength: {
+                                    min: 2,
+                                },
+                                notEmpty: {
+                                    message: 'Please supply your password'
+                                }
+                            }
+                        },
             email: {
                 validators: {
                     notEmpty: {
@@ -37,25 +57,20 @@
                     }
                 }
             },
-            login: {
+            skype: {
                 validators: {
                     notEmpty: {
-                        message: 'Please supply your login'
+                        message: 'Please supply your skype name'
                     }
-                }
-            },
-            Password: {
-                validators: {
-                     stringLength: {
-                        min: 8,
-                    },
-                    notEmpty: {
-                        message: 'Please supply your password'
-                    }
+
                 }
             }
 
 
+
+
+
+            }
         })
 
 });
