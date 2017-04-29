@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by wojci on 4/26/2017.
@@ -53,10 +54,11 @@ public class SkillController {
         skillForm.setSkillId(skillId);
         skillForm.setName(skill.getName());
 
-        String[] tags = skill.getTags().toArray(new String[skill.getTags().size()]);
+        Set<String> tags = skill.getTags();
+        String stringTags = tags.stream()
+                .collect(Collectors.joining(","));
 
-        skillForm.setTags(Arrays.toString(tags));
-
+        skillForm.setTags(stringTags);
         model.addAttribute("skillForm", skillForm);
 
         return "addSkill";
