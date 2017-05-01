@@ -43,14 +43,14 @@ public class TutorController {
     @RequestMapping(value = "/register", method = POST)
     public String registerNewTutor(@ModelAttribute Tutor tutor, Model model) {
 
-        if (!tutorService.checkIfTutorExists(tutor.getLogin())) {
+        if (!tutorService.checkIfTutorExists(tutor.getUsername())) {
             tutorService.saveTutor(tutor);
-            return "redirect:/tutor/profile/" + tutor.getLogin();
+            return "redirect:/tutor/profile/" + tutor.getUsername();
         } else {
 
             DuplicateUserError error = new DuplicateUserError();
             error.setError(true);
-            tutor.setLogin("");
+            tutor.setUsername("");
 
             model.addAttribute("error", error);
             model.addAttribute("tutor", tutor);
@@ -60,11 +60,11 @@ public class TutorController {
 
     }
 
-    @RequestMapping(value = "profile/{login}", method = RequestMethod.GET)
-    public String showProfile(@PathVariable("login") String login, Model model) {
+    @RequestMapping(value = "profile/{username}", method = RequestMethod.GET)
+    public String showProfile(@PathVariable("username") String username, Model model) {
 
         if (!model.containsAttribute("tutor")) {
-            Tutor tutor = tutorService.findByLogin(login);
+            Tutor tutor = tutorService.findByUsername(username);
             model.addAttribute("tutor", tutor);
         }
         return "profile";

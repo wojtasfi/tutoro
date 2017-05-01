@@ -16,13 +16,6 @@ public class TutoroApplication {
 
     public static void main(String[] args) {
 
-        Tutor tutor = new Tutor();
-        tutor.setLogin("tutor");
-        tutor.setEmail("tutor@tutor.pl");
-        tutor.setLastName("tutored");
-        tutor.setSkype("skype11");
-        tutor.setPassword("pollop");
-
         SpringApplication.run(TutoroApplication.class, args);
 
 
@@ -31,10 +24,11 @@ public class TutoroApplication {
     @PostConstruct
     public void addTutor() {
         Tutor tutor = new Tutor();
-        tutor.setLogin("tutor");
+        tutor.setUsername("tutor");
         tutor.setEmail("tutor@tutor.pl");
-        tutor.setLastName("tutored");
-        tutor.setSkype("skype11");
+        tutor.setName("Wojciech");
+        tutor.setLastName("Figas");
+        tutor.setSkype("skypeTutor");
         tutor.setPassword("pollop");
 
         tutorRepository.save(tutor);

@@ -15,7 +15,7 @@ public class Tutor {
     private Long id;
     private String name;
     private String lastName;
-    private String login;
+    private String username;
     private String password;
     private String email;
     private String skype;
@@ -30,7 +30,7 @@ public class Tutor {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", login='" + login + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';
@@ -59,12 +59,12 @@ public class Tutor {
         this.lastName = lastName;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
