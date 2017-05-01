@@ -47,7 +47,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "editSkill", method = RequestMethod.GET)
-    public String editSkillPage(@RequestParam String login, @RequestParam Long skillId, Model model) {
+    public String editSkillPage(@RequestParam Long skillId, Model model) {
         SkillForm skillForm = new SkillForm();
         Skill skill = skillService.getSkillById(skillId);
 

@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"></link>
+</head>
+<body>
+
+<div th:fragment="navbar">
+    <nav class="navbar navbar-default navbar-fixed-top">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TUTORO</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/how">How does it work?</a></li>
+                <li><a href="/stories">User stories</a></li>
+                <li><a href="/tutors">Tutors</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <div sec:authorize="isAuthenticated()">
+                    <div class="navbar-text">
+                        <div style="padding-right:10px">Hello <span sec:authentication="name">Bob</span>!
+                            <a th:href="@{'/tutor/profile/'+${#authentication.name}}"
+                               class="btn btn-primary btn-xs">Profile</a></div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+
+    </nav>
+</div>
+
+<div>Ciało strony</div>
+
+<div th:fragment="copy">
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="navbar-header">
+            <div class="navbar-text">Copyright &copy; Wojciech Figas</div>
+        </div>
+    </nav>
+</div>
+</body>
+
+</html>
