@@ -15,10 +15,11 @@ public class Tutor {
     private Long id;
     private String name;
     private String lastName;
-    private String login;
+    private String username;
     private String password;
     private String email;
     private String skype;
+    private String story;
 
 
     @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
@@ -30,14 +31,24 @@ public class Tutor {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", login='" + login + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", skype='" + skype + '\'' +
+                ", story='" + story + '\'' +
                 '}';
     }
 
     public Tutor() {
 
+    }
+
+    public String getStory() {
+        return story;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
     }
 
     public void addSkill(Skill skill) {
@@ -59,12 +70,12 @@ public class Tutor {
         this.lastName = lastName;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

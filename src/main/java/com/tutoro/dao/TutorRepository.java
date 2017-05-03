@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TutorRepository extends CrudRepository<Tutor, Long> {
 
-    Tutor findByLogin(String login);
+    Tutor findByUsername(String username);
 }

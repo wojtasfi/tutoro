@@ -38,7 +38,7 @@ public class SkillController {
 
         Tutor tutor = tutorService.findByLogin(login);
         skill.setTutor(tutor);
-        int skillId = skillService.saveSkill(skill).getId();
+        Long skillId = skillService.saveSkill(skill).getId();
 
         skillForm.setSkillId(skillId);
         model.addAttribute("skillForm", skillForm);
@@ -47,7 +47,7 @@ public class SkillController {
     }
 
     @RequestMapping(value = "editSkill", method = RequestMethod.GET)
-    public String editSkillPage(@RequestParam String login, @RequestParam int skillId, Model model) {
+    public String editSkillPage(@RequestParam Long skillId, Model model) {
         SkillForm skillForm = new SkillForm();
         Skill skill = skillService.getSkillById(skillId);
 
@@ -78,7 +78,7 @@ public class SkillController {
 
         tutorService.addSkill(skill, skill.getTutor());
         skillService.saveSkill(skill);
-        return "redirect:/tutor/profile/" + skill.getTutor().getLogin();
+        return "redirect:/tutor/profile/" + skill.getTutor().getUsername();
 
     }
 

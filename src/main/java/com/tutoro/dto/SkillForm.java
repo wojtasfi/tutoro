@@ -8,7 +8,7 @@ import com.tutoro.entities.Skill;
 
 public class SkillForm {
 
-    private int skillId;
+    private Long skillId;
     private String name;
     private String tag;
     String tags;
@@ -17,11 +17,11 @@ public class SkillForm {
         return tags;
     }
 
-    public int getSkillId() {
+    public Long getSkillId() {
         return skillId;
     }
 
-    public void setSkillId(int skillId) {
+    public void setSkillId(Long skillId) {
         this.skillId = skillId;
     }
 

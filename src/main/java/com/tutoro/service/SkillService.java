@@ -25,7 +25,7 @@ public class SkillService {
     }
 
 
-    public Skill getSkillById(int id) {
+    public Skill getSkillById(Long id) {
         return skillRepository.getSkillById(id);
     }
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html class="full" lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html class="full" lang="en" xmlns:th="http://www.thymeleaf.org"
+>
 <!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
 
 <head>
@@ -11,15 +11,13 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Skill</title>
-
-    <!-- Bootstrap Core CSS -->
+    <title>Tutor</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-    <link href="/css/the-big-picture.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css"
-          rel="stylesheet"/>
+
+    <link href="css/the-big-picture.css" rel="stylesheet"/>
+    <link href="/css/login.css" rel="stylesheet"/>
 
 </head>
 
@@ -28,47 +26,54 @@
 
 <div class="container">
     <div class="vertical-center">
-        <form class="well well-sm form-horizontal" method="post" th:object="${skillForm}" id="skill-form"
-              th:action="@{/skill/addskill}">
+
+
+        <form id="login_form" class="well well-sm form-horizontal" th:action="@{/login}" method="post">
+
             <fieldset>
 
                 <!-- Form Name -->
-                <legend>Add Skill</legend>
+                <legend>Login</legend>
+
+                <div th:if="${param.error}">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}">
+                    You have been logged out.
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Username</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="username" placeholder="Username" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Text input-->
+
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Name</label>
+                    <label class="col-md-4 control-label">Password</label>
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-heart-empty"></i></span>
-                            <input name="name" placeholder="Name" class="form-control" type="text"
-                                   th:field="*{name}"/>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input name="password" placeholder="Password" class="form-control" type="password"/>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Tag</label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
-                            <input name="tag" type="text" data-role="tagsinput"
-                                   th:field="*{tags}"/>
-                        </div>
-                        <div>
-                            <input type="hidden" th:field="*{skillId}"/>
 
-                        </div>
-                    </div>
-                </div>
+                <!-- Button -->
                 <div class="form-group">
                     <label class="col-md-4 control-label"></label>
                     <div class="col-md-4">
-
-                        <button type="submit" class="btn btn-success" value="skill" name="action">Save Skill</button>
+                        <button type="submit" class="btn btn-success">Login</button>
+                        OR <a href="/tutor/register" class="btn btn-primary">Register</a>
                     </div>
                 </div>
-
             </fieldset>
         </form>
     </div>
@@ -78,11 +83,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
         integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
         crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js.map"></script>
 
 </body>
-
 
 </html>
