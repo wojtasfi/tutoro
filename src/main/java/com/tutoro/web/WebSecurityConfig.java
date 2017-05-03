@@ -31,11 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .successForwardUrl("/tutors")
                 .permitAll()
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/tutors");
+                .logoutSuccessUrl("/login");
         //.permitAll();
     }
 
