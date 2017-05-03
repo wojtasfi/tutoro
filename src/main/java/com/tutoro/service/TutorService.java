@@ -7,6 +7,8 @@ import com.tutoro.entities.Tutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by wojci on 4/16/2017.
  */
@@ -47,5 +49,9 @@ public class TutorService {
     public Tutor findByUsername(String username) {
         Tutor tutor = tutorRepository.findByUsername(username);
         return tutor;
+    }
+
+    public List<Tutor> findAll() {
+        return (List<Tutor>) tutorRepository.findAll();
     }
 }

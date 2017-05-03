@@ -19,6 +19,7 @@ public class Tutor {
     private String password;
     private String email;
     private String skype;
+    private String story;
 
 
     @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
@@ -33,11 +34,21 @@ public class Tutor {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", skype='" + skype + '\'' +
+                ", story='" + story + '\'' +
                 '}';
     }
 
     public Tutor() {
 
+    }
+
+    public String getStory() {
+        return story;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
     }
 
     public void addSkill(Skill skill) {
