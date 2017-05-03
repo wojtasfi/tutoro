@@ -17,8 +17,6 @@ public class TutoroApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(TutoroApplication.class, args);
-
-
     }
 
     @PostConstruct
@@ -43,7 +41,30 @@ public class TutoroApplication {
         tutor2.setPassword("pollop");
         tutor2.setStory("I love Paris and my husband! ;D");
 
+        Tutor tutor3 = new Tutor();
+        tutor3.setUsername("janek");
+        tutor3.setEmail("janek@janek.pl");
+        tutor3.setName("Jan");
+        tutor3.setLastName("Kowalski");
+        tutor3.setSkype("johnKowal");
+        tutor3.setPassword("pollop");
+        tutor3.setStory("I am a mechanic for 20 year. I know a lot about Renault, BMW and Audi. " +
+                "I would be happy to talk about cars.");
+
+        Tutor tutor4 = new Tutor();
+        tutor4.setUsername("justJusti");
+        tutor4.setEmail("just@justi.pl");
+        tutor4.setName("Justyna");
+        tutor4.setLastName("Malicka");
+        tutor4.setSkype("jMal");
+        tutor4.setPassword("pollop");
+        tutor4.setStory("I am a florist and I love interior design. I own a flower shop and just " +
+                "started my own business as interior designer");
+
+
         tutorRepository.save(tutor);
         tutorRepository.save(tutor2);
+        tutorRepository.save(tutor3);
+        tutorRepository.save(tutor4);
     }
 }
