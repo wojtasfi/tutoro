@@ -21,9 +21,19 @@ public class Tutor {
     private String skype;
     private String story;
 
+    private String profilePicPath;
+
 
     @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
     private Set<Skill> skills = new HashSet<>();
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
 
     @Override
     public String toString() {
@@ -36,6 +46,7 @@ public class Tutor {
                 ", email='" + email + '\'' +
                 ", skype='" + skype + '\'' +
                 ", story='" + story + '\'' +
+                ", picture='" + profilePicPath + '\'' +
                 '}';
     }
 
