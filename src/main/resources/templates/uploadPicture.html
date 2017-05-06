@@ -26,22 +26,24 @@
 
 <div class="container">
     <div class="vertical-center">
-        <div class="well well-sm form-horizontal">
+        <div class="well form-horizontal">
             <form th:action="@{/picture/upload(id=${tutor.id})}" method="post" enctype="multipart/form-data"
                   class="col m8 s12 offset-m2">
+                <fieldset>
+                    <legend>Upload profile picture</legend>
 
-                <legend>Upload profile picture</legend>
-
-                <div class="input-field col s6">
-                    <input type="file" id="file" name="file"/>
-                </div>
-
-                <div class="col s6 center">
-                    <button class="btn btn-primary" type="submit" name="upload">
-                        Load
-                        <i class="mdi-content-send right"></i>
-                    </button>
-                </div>
+                    <div class="input-field col s6">
+                        <input type="file" id="file" name="file"/>
+                        <span><small>JPEG, PNG, GIF</small></span>
+                    </div>
+                    <br/>
+                    <div class="col s6 center">
+                        <button class="btn btn-primary" type="submit" name="upload">
+                            Load
+                            <i class="mdi-content-send right"></i>
+                        </button>
+                    </div>
+                </fieldset>
             </form>
         </div>
     </div>

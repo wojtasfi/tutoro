@@ -5,23 +5,23 @@ import com.tutoro.service.TutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 
@@ -32,9 +32,6 @@ public class PictureController {
     private final MessageSource messageSource;
 
     private static Logger LOGGER = LoggerFactory.getLogger(PictureController.class);
-
-    @Value("${profile.pictures.path}")
-    String profilePicturesPath;
 
     @Autowired
     private TutorService tutorService;
@@ -48,38 +45,19 @@ public class PictureController {
     public String onUpload(@RequestParam MultipartFile file, @RequestParam Long id,
                            RedirectAttributes redirectAttrs, HttpServletRequest request) throws IOException {
         Tutor tutor = tutorService.findOne(id);
-        LOGGER.info(tutor.toString());
-
         if (file.isEmpty() || !isImage(file)) {
             redirectAttrs.addFlashAttribute("error", "It is not a picture file!");
             return "redirect:/tutor/profile/" + tutor.getUsername();
         }
 
-        createPicDir(tutor.getUsername());
+        File image = multipartToFile(file);
+        byte[] byteImage = readContentIntoByteArray(image);
 
-        String fullPicPath = profilePicturesPath + tutor.getUsername() + "\\" + file.getOriginalFilename();
-        file.transferTo(new File(fullPicPath));
+        tutor.setProfilePic(byteImage);
 
-        tutor.setProfilePicPath(fullPicPath);
-        LOGGER.info(tutor.toString());
         tutorService.saveTutor(tutor);
 
         return "redirect:/tutor/profile/" + tutor.getUsername();
-    }
-
-    private void createPicDir(String username) {
-        File theDir = new File(profilePicturesPath + username);
-
-        if (!theDir.exists()) {
-
-            try {
-                theDir.mkdir();
-
-            } catch (SecurityException e) {
-                LOGGER.error("Could not create dir: ", e);
-            }
-
-        }
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
@@ -92,20 +70,6 @@ public class PictureController {
             model.addAttribute("tutor", tutor);
         }
         return "uploadPicture";
-    }
-
-    @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public BufferedImage showPicture(@RequestParam Long id, Model model) {
-        Tutor tutor = tutorService.findOne(id);
-        byte[] bytes = null;
-        BufferedImage img = null;
-
-        try {
-            img = ImageIO.read(new ByteArrayInputStream(bytes));
-        } catch (IOException e) {
-            LOGGER.error("Could not load image");
-        }
-        return img;
     }
 
 
@@ -123,12 +87,52 @@ public class PictureController {
         return modelAndView;
     }
 
+
+    @RequestMapping(value = "/profilepic", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<byte[]> downloadUserAvatarImage(@RequestParam("username") String username) throws IOException {
+        Tutor tutor = tutorService.findByUsername(username);
+
+        byte[] imageContent = tutor.getProfilePic();
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_JPEG);
+
+        if (imageContent == null) {
+            File file = new ClassPathResource("static/images/ninja.jpg").getFile();
+            byte[] deafultPicture = readContentIntoByteArray(file);
+            return new ResponseEntity<>(deafultPicture, headers, HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
+    }
+
+    public File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
+        File convFile = new File(multipart.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(multipart.getBytes());
+        fos.close();
+        return convFile;
+    }
+
     private boolean isImage(MultipartFile file) {
         return file.getContentType().startsWith("image");
     }
 
     private static String getFileExtension(String name) {
         return name.substring(name.lastIndexOf("."));
+    }
+
+    private static byte[] readContentIntoByteArray(File file) {
+        byte[] bFile = new byte[(int) file.length()];
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
+
+            fileInputStream.read(bFile);
+
+        } catch (Exception e) {
+            LOGGER.error("Could not read file", e);
+        }
+        return bFile;
     }
 
 }
