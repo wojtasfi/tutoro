@@ -21,9 +21,20 @@ public class Tutor {
     private String skype;
     private String story;
 
+    @Lob
+    private byte[] profilePic;
+
 
     @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
     private Set<Skill> skills = new HashSet<>();
+
+    public byte[] getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(byte[] profilePic) {
+        this.profilePic = profilePic;
+    }
 
     @Override
     public String toString() {
@@ -36,6 +47,7 @@ public class Tutor {
                 ", email='" + email + '\'' +
                 ", skype='" + skype + '\'' +
                 ", story='" + story + '\'' +
+                ", picture='" + profilePic + '\'' +
                 '}';
     }
 

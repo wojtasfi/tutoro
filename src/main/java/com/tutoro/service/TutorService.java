@@ -54,4 +54,8 @@ public class TutorService {
     public List<Tutor> findAll() {
         return (List<Tutor>) tutorRepository.findAll();
     }
+
+    public Tutor findOne(Long id) {
+        return tutorRepository.findOne(id);
+    }
 }
