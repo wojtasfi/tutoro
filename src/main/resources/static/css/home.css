@@ -1,3 +1,5 @@
+body{padding-top:30px;}
+
 small {
 display: block;
 line-height: 1.428571429;
@@ -5,10 +7,5 @@ color: #999;
 }
 
 .top-of-form {
-padding-top: 50px;
-}
-
-.i-am-centered {
-margin: auto;
-padding-top: 50px;
+padding-top: 100px;
 }
