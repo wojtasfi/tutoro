@@ -7,19 +7,19 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
-            first_name: {
+            name: {
                 validators: {
-stringLength: {
+                    stringLength: {
                         min: 2,
                     },
-                        notEmpty: {
+                    notEmpty: {
                         message: 'Please supply your first name'
                     }
                 }
             },
-             last_name: {
+            lastName: {
                 validators: {
-                     stringLength: {
+                    stringLength: {
                         min: 2,
                     },
                     notEmpty: {
@@ -27,26 +27,26 @@ stringLength: {
                     }
                 }
             },
-            login: {
-                            validators: {
-                                 stringLength: {
-                                    min: 2,
-                                },
-                                notEmpty: {
-                                    message: 'Please supply your login'
-                                }
-                            }
-                        },
+            username: {
+                validators: {
+                    stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: 'Please supply your login'
+                    }
+                }
+            },
             password: {
-                            validators: {
-                                 stringLength: {
-                                    min: 2,
-                                },
-                                notEmpty: {
-                                    message: 'Please supply your password'
-                                }
-                            }
-                        },
+                validators: {
+                    stringLength: {
+                        min: 2,
+                    },
+                    notEmpty: {
+                        message: 'Please supply your password'
+                    }
+                }
+            },
             email: {
                 validators: {
                     notEmpty: {
@@ -69,9 +69,7 @@ stringLength: {
 
 
 
-
-            }
-        })
+        }
+    })
 
 });
-
