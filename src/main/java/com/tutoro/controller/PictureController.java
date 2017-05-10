@@ -55,7 +55,7 @@ public class PictureController {
 
         tutorService.saveTutor(tutor);
 
-        return "redirect:/tutor/profile/" + tutor.getUsername();
+        return "redirect:/tutor/profile/edit/" + tutor.getUsername();
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)

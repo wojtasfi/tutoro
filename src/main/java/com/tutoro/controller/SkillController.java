@@ -78,7 +78,7 @@ public class SkillController {
 
         tutorService.addSkill(skill, skill.getTutor());
         skillService.saveSkill(skill);
-        return "redirect:/tutor/profile/" + skill.getTutor().getUsername();
+        return "redirect:/tutor/profile/edit/" + skill.getTutor().getUsername();
 
     }
 

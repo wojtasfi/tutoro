@@ -69,4 +69,27 @@ public class TutorController {
         }
         return "profile";
     }
+
+    @RequestMapping(value = "profile/edit/{username}", method = RequestMethod.GET)
+    public String showEditProfile(@PathVariable("username") String username, Model model) {
+
+        if (!model.containsAttribute("tutor")) {
+            Tutor tutor = tutorService.findByUsername(username);
+            model.addAttribute("tutor", tutor);
+        }
+        return "editProfile";
+    }
+
+    @RequestMapping(value = "/profile/edit", method = RequestMethod.POST)
+    public String editProfile(@ModelAttribute Tutor tutor, Model model) {
+        LOGGER.info(tutor.toString());
+
+        Tutor oldTutor = tutorService.findByUsername(tutor.getUsername());
+
+        tutor.setPassword(oldTutor.getPassword());
+        tutor.setProfilePic(oldTutor.getProfilePic());
+        tutorService.saveTutor(tutor);
+
+        return "redirect:" + tutor.getUsername();
+    }
 }

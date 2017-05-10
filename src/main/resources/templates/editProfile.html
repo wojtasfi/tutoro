@@ -32,7 +32,8 @@
     <div class="top-of-form">
         <div class="row">
 
-            <div class="well well-sm">
+            <form id="edit_profile" class="well well-sm" th:object="${tutor}" th:action="@{/tutor/profile/edit}"
+                  method="post">
 
                 <div class="row">
                     <div class="col-sm-8 col-md-3">
@@ -41,45 +42,71 @@
                              width="380"
                              class="img-rounded img-responsive"/>
 
-                    </div>
+                        <div sec:authorize="isAuthenticated()">
+                            <div th:if="${tutor.username} == ${#authentication.name}">
+                                <br/>
+                                <a class="btn btn-primary btn-xs" name="upload"
+                                   th:href="@{/picture/upload(id=${tutor.id})}">Upload
+                                    picture</a>
+                            </div>
 
+                        </div>
+                    </div>
                     <div class="col-sm-4 col-md-6">
+                        <input th:field="*{id}" type="hidden"/>
+                        <input th:field="*{username}" type="hidden"/>
+
                         <h4>
                             <span th:text="${tutor.username}"></span></h4>
-                        <small><span th:text="${tutor.name}"></span> <span th:text="${tutor.lastName}"></span>
+                        <small><input th:field="*{name}" type="text" placeholder="Name"/> <input th:field="*{lastName}"
+                                                                                                 type="text"
+                                                                                                 placeholder="Last name"/>
                         </small>
                         <br/>
                         <p>
-                            <i class="glyphicon glyphicon-envelope"></i><span th:text="${tutor.email}"></span>
+                            <i class="glyphicon glyphicon-envelope"></i><input th:field="*{email}" type="text"
+                                                                               placeholder="Email"/>
                             <br/>
-                            <i class="glyphicon glyphicon-earphone"></i><span th:text="${tutor.skype}"></span>
+                            <i class="glyphicon glyphicon-earphone"></i><input th:field="*{skype}" type="text"
+                                                                               placeholder="Skype"/>
                             <br/></p>
-                        <span th:text="${tutor.story}"></span>
-
+                        <div class="form-group">
+                            <textarea th:field="*{story}" placeholder="Your story, skills and interests"
+                                      class="form-control"
+                                      rows="5" id="story"/>
+                        </div>
 
                     </div>
 
                     <div class="col-sm-4 col-md-3">
                         <div sec:authorize="isAuthenticated()">
                             <div th:if="${tutor.username} == ${#authentication.name}">
-                                <a th:href="@{'/tutor/profile/edit/'+${#authentication.name}}"
-                                   class="btn btn-primary pull-right">Edit profile</a></div>
+                                <input th:href="@{'/tutor/profile/'+${#authentication.name}}"
+                                       class="btn btn-success pull-right" type="submit" value="Save"/></div>
                         </div>
 
-                        <strong>Skills:</strong>
-                        <br/>
+                        <strong>Skills:</strong><br/>
                         <ul th:each="skill : ${tutor.skills}">
                             <li>
                                 <span th:text="${skill.name}"></span>
+                                <a sec:authorize="isAuthenticated()"
+                                   th:href="@{/skill/editSkill(skillId=${skill.id},username=${tutor.username})}">
+                                    <span class="glyphicon glyphicon-edit"></span></a>
+
                             </li>
                         </ul>
                         <br/>
+                        <div sec:authorize="isAuthenticated()">
+                            <a th:if="${tutor.username} == ${#authentication.name}"
+                               th:href="@{/skill/addskill/} + ${tutor.username}"
+                               class="btn btn-primary btn-xs">Add Skill</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
+
         </div>
     </div>
-
 </div>
 
 <div id="copy" th:include="page :: copy"></div>
