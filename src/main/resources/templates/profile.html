@@ -41,16 +41,8 @@
                              width="380"
                              class="img-rounded img-responsive"/>
 
-                        <div sec:authorize="isAuthenticated()">
-                            <div th:if="${tutor.username} == ${#authentication.name}">
-                                <br/>
-                                <a class="btn btn-primary btn-xs" name="upload"
-                                   th:href="@{/picture/upload(id=${tutor.id})}">Upload
-                                    picture</a>
-                            </div>
-
-                        </div>
                     </div>
+
                     <div class="col-sm-4 col-md-6">
                         <h4>
                             <span th:text="${tutor.username}"></span></h4>
@@ -70,32 +62,24 @@
                     <div class="col-sm-4 col-md-3">
                         <div sec:authorize="isAuthenticated()">
                             <div th:if="${tutor.username} == ${#authentication.name}">
-                                <a th:href="@{'/tutor/profile/'+${#authentication.name}}"
+                                <a th:href="@{'/tutor/profile/edit/'+${#authentication.name}}"
                                    class="btn btn-primary pull-right">Edit profile</a></div>
                         </div>
 
-                        <strong>Skills:</strong><br/>
+                        <strong>Skills:</strong>
+                        <br/>
                         <ul th:each="skill : ${tutor.skills}">
                             <li>
                                 <span th:text="${skill.name}"></span>
-                                <a sec:authorize="isAuthenticated()"
-                                   th:href="@{/skill/editSkill(skillId=${skill.id},username=${tutor.username})}">
-                                    <span class="glyphicon glyphicon-edit"></span></a>
-
                             </li>
                         </ul>
                         <br/>
-                        <div sec:authorize="isAuthenticated()">
-                            <a th:if="${tutor.username} == ${#authentication.name}"
-                               th:href="@{/skill/addskill/} + ${tutor.username}"
-                               class="btn btn-primary btn-xs">Add Skill</a>
-                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
 </div>
 
 <div id="copy" th:include="page :: copy"></div>
