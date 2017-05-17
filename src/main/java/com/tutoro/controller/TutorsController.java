@@ -42,7 +42,7 @@ public class TutorsController {
         for (Tutor tutor : tutors) {
             Set<Skill> skills = tutor.getSkills();
 
-            Set limitedSkills = (Set) skills
+            Set limitedSkills = skills
                     .stream()
                     .limit(15)
                     .collect(Collectors.toSet());
