@@ -1,6 +1,8 @@
 package com.tutoro.controller;
 
+import com.tutoro.entities.Skill;
 import com.tutoro.entities.Tutor;
+import com.tutoro.service.SkillService;
 import com.tutoro.service.TutorService;
 import com.tutoro.web.DuplicateUserError;
 import org.slf4j.Logger;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Iterator;
+import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -25,6 +30,9 @@ public class TutorController {
 
     @Autowired
     private TutorService tutorService;
+
+    @Autowired
+    private SkillService skillService;
 
     private static Logger LOGGER = LoggerFactory.getLogger(TutorController.class);
 
@@ -64,7 +72,10 @@ public class TutorController {
     public String showProfile(@PathVariable("username") String username, Model model) {
 
         if (!model.containsAttribute("tutor")) {
+
             Tutor tutor = tutorService.findByUsername(username);
+            LOGGER.info(tutor.toString());
+            cleanSkills(tutor);
             model.addAttribute("tutor", tutor);
         }
         return "profile";
@@ -74,7 +85,11 @@ public class TutorController {
     public String showEditProfile(@PathVariable("username") String username, Model model) {
 
         if (!model.containsAttribute("tutor")) {
+
             Tutor tutor = tutorService.findByUsername(username);
+            LOGGER.info(tutor.toString());
+            tutor.getSkills().forEach(s -> LOGGER.info(s.toString()));
+            cleanSkills(tutor);
             model.addAttribute("tutor", tutor);
         }
         return "editProfile";
@@ -91,5 +106,22 @@ public class TutorController {
         tutorService.saveTutor(tutor);
 
         return "redirect:" + tutor.getUsername();
+    }
+
+    public Tutor cleanSkills(Tutor tutor) {
+        Set<Skill> skills = tutor.getSkills();
+
+        Iterator<Skill> it = skills.iterator();
+        while (it.hasNext()) {
+            Skill skill = it.next();
+            if (skill.getName() == null) {
+                it.remove();
+                skillService.deleteSkill(skill);
+            }
+        }
+
+        tutor.setSkills(skills);
+        tutorService.saveTutor(tutor);
+        return tutor;
     }
 }
