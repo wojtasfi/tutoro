@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -78,7 +80,15 @@ public class SkillController {
 
         tutorService.addSkill(skill, skill.getTutor());
         skillService.saveSkill(skill);
-        return "redirect:/tutor/profile/edit/" + skill.getTutor().getUsername();
+
+        String encodedUsername = null;
+        try {
+            encodedUsername = URLEncoder.encode(skill.getTutor().getUsername(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error("Could not encode message", e);
+        }
+
+        return "redirect:/tutor/profile/edit/" + encodedUsername;
 
     }
 

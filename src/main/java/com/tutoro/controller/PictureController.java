@@ -19,10 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("/picture")
@@ -55,7 +53,14 @@ public class PictureController {
 
         tutorService.saveTutor(tutor);
 
-        return "redirect:/tutor/profile/edit/" + tutor.getUsername();
+        String encodedUsername = null;
+        try {
+            encodedUsername = URLEncoder.encode(tutor.getUsername(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error("Could not encode message", e);
+        }
+
+        return "redirect:/tutor/profile/edit/" + encodedUsername;
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)

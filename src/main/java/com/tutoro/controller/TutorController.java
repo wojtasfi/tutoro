@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -104,8 +106,15 @@ public class TutorController {
         tutor.setPassword(oldTutor.getPassword());
         tutor.setProfilePic(oldTutor.getProfilePic());
         tutorService.saveTutor(tutor);
+        LOGGER.info(tutor.getUsername());
 
-        return "redirect:" + tutor.getUsername();
+        String encodedUsername = null;
+        try {
+            encodedUsername = URLEncoder.encode(tutor.getUsername(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error("Could not encode message", e);
+        }
+        return "redirect:" + encodedUsername;
     }
 
     public Tutor cleanSkills(Tutor tutor) {

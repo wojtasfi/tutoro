@@ -29,7 +29,6 @@ public class SkillService {
         return skill;
     }
 
-
     public Skill getSkillById(Long id) {
         return skillRepository.getSkillById(id);
     }

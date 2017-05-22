@@ -2,6 +2,7 @@ package com.tutoro.controller;
 
 import com.tutoro.entities.Skill;
 import com.tutoro.entities.Tutor;
+import com.tutoro.service.SearchService;
 import com.tutoro.service.TutorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Set;
@@ -22,12 +24,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
  */
 @Controller
 @RequestMapping("/")
-public class TutorsController {
+public class SearchController {
 
     @Autowired
     private TutorService tutorService;
 
-    private static Logger LOGGER = LoggerFactory.getLogger(TutorsController.class);
+    @Autowired
+    private SearchService searchService;
+
+    private static Logger LOGGER = LoggerFactory.getLogger(SearchController.class);
 
     @RequestMapping(value = "/tutors", method = POST)
     public String findAllTutorstAfterLogin(Model model) {
@@ -52,6 +57,13 @@ public class TutorsController {
         }
         model.addAttribute("tutors", tutors);
 
+        return "tutors";
+    }
+
+    @RequestMapping(value = "/tutors/search", method = POST)
+    public String simpleSearch(@RequestParam String text, Model model) {
+        List<Tutor> tutors = searchService.simpleSearch(text);
+        model.addAttribute("tutors", tutors);
         return "tutors";
     }
 
