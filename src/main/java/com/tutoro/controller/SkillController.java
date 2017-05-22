@@ -66,6 +66,23 @@ public class SkillController {
         return "addSkill";
     }
 
+    @RequestMapping(value = "deleteSkill", method = RequestMethod.GET)
+    public String deleteSkill(@RequestParam Long skillId, Model model) {
+        Skill skill = skillService.deleteSkill(skillId);
+
+        return "redirect:/tutor/profile/edit/" + encodeUsername(skill);
+    }
+
+    private String encodeUsername(Skill skill) {
+        String encodedUsername = null;
+        try {
+            encodedUsername = URLEncoder.encode(skill.getTutor().getUsername(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error("Could not encode message", e);
+        }
+        return encodedUsername;
+    }
+
     @RequestMapping(value = "addskill", method = RequestMethod.POST)
     public String addSkill(@ModelAttribute SkillForm skillForm,
                            Model model) {
@@ -81,14 +98,7 @@ public class SkillController {
         tutorService.addSkill(skill, skill.getTutor());
         skillService.saveSkill(skill);
 
-        String encodedUsername = null;
-        try {
-            encodedUsername = URLEncoder.encode(skill.getTutor().getUsername(), "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            LOGGER.error("Could not encode message", e);
-        }
-
-        return "redirect:/tutor/profile/edit/" + encodedUsername;
+        return "redirect:/tutor/profile/edit/" + encodeUsername(skill);
 
     }
 

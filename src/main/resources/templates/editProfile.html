@@ -129,6 +129,9 @@
                                 <a sec:authorize="isAuthenticated()"
                                    th:href="@{/skill/editSkill(skillId=${skill.id},username=${tutor.username})}">
                                     <span class="glyphicon glyphicon-edit"></span></a>
+                                <a sec:authorize="isAuthenticated()"
+                                   th:href="@{/skill/deleteSkill(skillId=${skill.id},username=${tutor.username})}">
+                                    <span class="glyphicon glyphicon-remove"></span></a>
 
                             </li>
                         </ul>

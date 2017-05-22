@@ -32,4 +32,10 @@ public class SkillService {
     public Skill getSkillById(Long id) {
         return skillRepository.getSkillById(id);
     }
+
+    public Skill deleteSkill(Long skillId) {
+        Skill skill = skillRepository.getSkillById(skillId);
+        skillRepository.delete(skill);
+        return skill;
+    }
 }
