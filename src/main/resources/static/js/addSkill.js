@@ -12,10 +12,20 @@ $(document).ready(function() {
                     stringLength: {
                         min: 2,
                         max: 15,
-
                     },
                     notEmpty: {
                         message: 'Please supply your first name'
+                    }
+                }
+            },
+            description: {
+                validators: {
+                    stringLength: {
+                        max: 255,
+                        message: 'Max 255 letters'
+                    },
+                    notEmpty: {
+                        message: 'Please supply your skill`s description'
                     }
                 }
             }

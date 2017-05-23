@@ -70,8 +70,10 @@
                         <br/>
                         <ul th:each="skill : ${tutor.skills}">
                             <li>
-                                <span th:text="${skill.name}"></span>
+                                <a th:href="@{/skill/viewSkill(skillId=${skill.id},username=${tutor.username})}">
+                                    <span th:text="${skill.name}"></span></a>
                             </li>
+
                         </ul>
                         <br/>
                     </div>

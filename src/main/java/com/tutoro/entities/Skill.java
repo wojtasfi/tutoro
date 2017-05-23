@@ -15,6 +15,7 @@ public class Skill {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String description;
 
     @OneToMany(mappedBy = "skill", fetch = FetchType.EAGER)
     private Set<SkillReview> reviews = new HashSet<>();
@@ -30,6 +31,7 @@ public class Skill {
         return "Skill{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", reviews=" + reviews +
                 ", tags=" + tags +
                 ", tutor=" + tutor +
@@ -37,6 +39,14 @@ public class Skill {
     }
 
     public Skill() {
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Tutor getTutor() {

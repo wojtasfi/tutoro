@@ -55,6 +55,7 @@ public class SkillController {
 
         skillForm.setSkillId(skillId);
         skillForm.setName(skill.getName());
+        skillForm.setDescription(skill.getDescription());
 
         Set<String> tags = skill.getTags();
         String stringTags = tags.stream()
@@ -89,6 +90,7 @@ public class SkillController {
 
         Skill skill = skillService.getSkillById(skillForm.getSkillId());
         skill.setName(skillForm.getName());
+        skill.setDescription(skillForm.getDescription());
 
         String[] stringTags = skillForm.getTags().split(",");
         Set<String> tags = new HashSet<>(Arrays.asList(stringTags));
@@ -102,4 +104,12 @@ public class SkillController {
 
     }
 
+    @RequestMapping(value = "viewSkill", method = RequestMethod.GET)
+    public String viewSkill(@RequestParam Long skillId, Model model) {
+        Skill skill = skillService.getSkillById(skillId);
+
+        model.addAttribute("skill", skill);
+
+        return "skill";
+    }
 }

@@ -11,7 +11,17 @@ public class SkillForm {
     private Long skillId;
     private String name;
     private String tag;
+    private String description;
     String tags;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 
     public String getTags() {
         return tags;
