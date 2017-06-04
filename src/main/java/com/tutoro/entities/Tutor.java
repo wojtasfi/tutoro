@@ -24,9 +24,15 @@ public class Tutor {
     @Lob
     private byte[] profilePic;
 
-
     @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
     private Set<Skill> skills = new HashSet<>();
+
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
+    private Set<LearnRelation> teacherRelations = new HashSet<>();
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    private Set<LearnRelation> studentRelations = new HashSet<>();
+
 
     public byte[] getProfilePic() {
         return profilePic;
@@ -59,6 +65,22 @@ public class Tutor {
         return story;
     }
 
+    public Set<LearnRelation> getTeacherRelations() {
+        return teacherRelations;
+    }
+
+    public void setTeacherRelations(Set<LearnRelation> teacherRelations) {
+        this.teacherRelations = teacherRelations;
+    }
+
+    public Set<LearnRelation> getStudentRelations() {
+        return studentRelations;
+    }
+
+    public void setStudentRelations(Set<LearnRelation> studentRelations) {
+        this.studentRelations = studentRelations;
+    }
+
     public void setStory(String story) {
         this.story = story;
     }
@@ -66,6 +88,7 @@ public class Tutor {
     public void addSkill(Skill skill) {
         skills.add(skill);
     }
+
     public String getName() {
         return name;
     }

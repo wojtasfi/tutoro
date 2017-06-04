@@ -63,8 +63,12 @@
                         <div sec:authorize="isAuthenticated()">
                             <div th:if="${tutor.username} == ${#authentication.name}">
                                 <a th:href="@{'/tutor/profile/edit/'+${#authentication.name}}"
-                                   class="btn btn-primary pull-right">Edit profile</a></div>
+                                   class="btn btn-primary pull-right">Edit profile</a>
+                            </div>
                         </div>
+
+                        <a th:href="@{/tutor/teachers/(tutor=${tutor.username})}"
+                           class="btn btn-primary pull-right">Show teachers</a>
 
                         <strong>Skills:</strong>
                         <br/>

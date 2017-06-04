@@ -114,7 +114,7 @@ public class TutorController {
         } catch (UnsupportedEncodingException e) {
             LOGGER.error("Could not encode message", e);
         }
-        return "redirect:" + encodedUsername;
+        return "redirect:/tutor/profile/" + encodedUsername;
     }
 
     public Tutor cleanSkills(Tutor tutor) {

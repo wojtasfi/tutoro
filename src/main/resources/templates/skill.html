@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="full" lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
 
 <head>
@@ -44,8 +45,14 @@
                         <p>
                             <span th:text="${skill.description}"></span>
                             <br/></p>
-
-
+                    </div>
+                    <div class="col-sm-4 col-md-3">
+                        <div sec:authorize="isAuthenticated()">
+                            <div th:if="${tutor.username} != ${#authentication.name}">
+                                <a th:href="@{/relations/save(skillId=${skill.id}, studentName=${#authentication.name})}"
+                                   class="btn btn-primary pull-right">Become student</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

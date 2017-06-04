@@ -109,6 +109,7 @@ public class SkillController {
         Skill skill = skillService.getSkillById(skillId);
 
         model.addAttribute("skill", skill);
+        model.addAttribute("tutor", skill.getTutor());
 
         return "skill";
     }
