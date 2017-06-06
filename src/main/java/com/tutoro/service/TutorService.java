@@ -2,12 +2,16 @@ package com.tutoro.service;
 
 import com.tutoro.dao.SkillRepository;
 import com.tutoro.dao.TutorRepository;
+import com.tutoro.entities.LearnRelation;
 import com.tutoro.entities.Skill;
 import com.tutoro.entities.Tutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by wojci on 4/16/2017.
@@ -57,5 +61,35 @@ public class TutorService {
 
     public Tutor findOne(Long id) {
         return tutorRepository.findOne(id);
+    }
+
+    public List<Tutor> findAllTeachers(String tutor) {
+        List<Tutor> teachers = new ArrayList<>();
+        Set<LearnRelation> relations = tutorRepository.findByUsername(tutor).getStudentRelations();
+
+        for (LearnRelation relation : relations) {
+            if (!teachers.contains(relation.getTeacher())) {
+                teachers.add(relation.getTeacher());
+            }
+        }
+
+        return teachers;
+    }
+
+    public Tutor findByUsernameWithSkillsTeachingToStudent(String teacher, String student) {
+        Tutor teacherTutor = tutorRepository.findByUsername(teacher);
+        Tutor studentTutor = tutorRepository.findByUsername(student);
+
+        Set<Skill> toughtSkills = new HashSet<>();
+
+        for (LearnRelation relation : teacherTutor.getTeacherRelations()) {
+            if (relation.getStudent().equals(studentTutor)) {
+                toughtSkills.add(relation.getSkill());
+            }
+        }
+
+        teacherTutor.setSkills(toughtSkills);
+
+        return teacherTutor;
     }
 }

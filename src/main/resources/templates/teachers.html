@@ -30,7 +30,7 @@
         <form class="well well-small" role="search" th:action="@{/tutors/search}" method="post">
             <div class="row">
                 <div class="col-sm-3 col-md-3">
-                    <legend><span th:text="${tutor.username} teachers"></span></legend>
+                    <legend><span th:text="${tutor.username}"></span>`s teachers</legend>
                     <input type="hidden"
                            th:name="${_csrf.parameterName}"
                            th:value="${_csrf.token}"/>
@@ -48,36 +48,36 @@
     </div>
 
     <div class="tutors">
-        <ul th:each="tutor : ${tutors}">
+        <ul th:each="teacher : ${teachers}">
             <li>
                 <div class="well well-small">
                     <div class="row">
                         <div class="col-sm-2 col-md-2">
-                            <img id="profilepic" th:src="@{/picture/profilepic/(username=${tutor.username})}"
+                            <img id="profilepic" th:src="@{/picture/profilepic/(username=${teacher.username})}"
                                  height="140" width="100"
                                  class="img-rounded img-responsive"/>
                         </div>
                         <div class="col-sm-2 col-md-2">
                             <h4>
-                                <span th:text="${tutor.username}"></span></h4>
-                            <small><span th:text="${tutor.name}"></span> <span th:text="${tutor.lastName}"></span>
+                                <span th:text="${teacher.username}"></span></h4>
+                            <small><span th:text="${teacher.name}"></span> <span th:text="${tutor.lastName}"></span>
                             </small>
                         </div>
                         <div class="col-sm-4 col-md-4">
-                            <span th:text="${tutor.story}"></span>
+                            <span th:text="${teacher.story}"></span>
                         </div>
-                        <div class="col-sm-3 col-md-3">
+                        <div class="col-sm-2 col-md-2">
                             <strong>Skills:</strong>
-                            <ul th:each="skill : ${tutor.skills}" style="display:inline;">
+                            <ul th:each="skill : ${teacher.skills}" style="display:inline;">
                                 <li style="display:inline-block;">
-                                    <span th:text="${skill.name}"></span>
+                                    <span th:text="${skill.name} "></span>
                                 </li>
-                                ,
+
                             </ul>
                         </div>
-                        <div class="col-sm-1 col-md-1">
-                            <a th:href="@{'/tutor/profile/'+${tutor.username}}"
-                               class="btn btn-primary pull-right">Show profile</a>
+                        <div class="col-sm-2 col-md-2">
+                            <a th:href="@{/relations/showTeacher(teacher=${teacher.username}, student=${tutor.username})}"
+                               class="btn btn-primary pull-right">Show teacher</a>
                         </div>
                     </div>
                 </div>

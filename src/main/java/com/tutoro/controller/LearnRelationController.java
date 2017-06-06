@@ -12,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -60,6 +62,32 @@ public class LearnRelationController {
             LOGGER.error("Could not encode message", e);
         }
         return "redirect:/tutor/profile/" + encodedUsername;
+
+    }
+
+
+    @RequestMapping(value = "/showTeachers", method = RequestMethod.GET)
+    public String showTeachers(@RequestParam String username, Model model) {
+        List<Tutor> teachers = tutorService.findAllTeachers(username);
+
+        Tutor tutor = tutorService.findByUsername(username);
+
+        model.addAttribute("teachers", teachers);
+        model.addAttribute("tutor", tutor);
+
+        return "teachers";
+
+    }
+
+    @RequestMapping(value = "/showTeacher", method = RequestMethod.GET)
+    public String showTeacher(@RequestParam String teacher, @RequestParam String student, Model model) {
+        Tutor teacherTutor = tutorService.findByUsernameWithSkillsTeachingToStudent(teacher, student);
+        Tutor tutor = tutorService.findByUsername(student);
+
+        model.addAttribute("teacher", teacherTutor);
+        model.addAttribute("tutor", tutor);
+
+        return "teacher";
 
     }
 

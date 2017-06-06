@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="full" lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+>
 <!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
 
 <head>
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-sm-8 col-md-3">
 
-                        <img id="profilepic" th:src="@{/picture/profilepic/(username=${tutor.username})}" height="500"
+                        <img id="profilepic" th:src="@{/picture/profilepic/(username=${teacher.username})}" height="500"
                              width="380"
                              class="img-rounded img-responsive"/>
 
@@ -45,36 +45,27 @@
 
                     <div class="col-sm-4 col-md-6">
                         <h4>
-                            <span th:text="${tutor.username}"></span></h4>
-                        <small><span th:text="${tutor.name}"></span> <span th:text="${tutor.lastName}"></span>
+                            <span th:text="${teacher.username}"></span></h4>
+                        <small><span th:text="${teacher.name}"></span> <span th:text="${teacher.lastName}"></span>
                         </small>
                         <br/>
                         <p>
-                            <i class="glyphicon glyphicon-envelope"></i><span th:text="${tutor.email}"></span>
+                            <i class="glyphicon glyphicon-envelope"></i><span th:text="${teacher.email}"></span>
                             <br/>
-                            <i class="glyphicon glyphicon-earphone"></i><span th:text="${tutor.skype}"></span>
+                            <i class="glyphicon glyphicon-earphone"></i><span th:text="${teacher.skype}"></span>
                             <br/></p>
-                        <span th:text="${tutor.story}"></span>
+                        <span th:text="${teacher.story}"></span>
 
 
                     </div>
 
                     <div class="col-sm-4 col-md-3">
-                        <div sec:authorize="isAuthenticated()">
-                            <div th:if="${tutor.username} == ${#authentication.name}">
-                                <a th:href="@{'/tutor/profile/edit/'+${#authentication.name}}"
-                                   class="btn btn-primary pull-right">Edit profile</a>
-                            </div>
-                        </div>
 
-                        <a th:href="@{/relations/showTeachers(username=${tutor.username})}"
-                           class="btn btn-primary pull-right">Show teachers</a>
-
-                        <strong>Skills:</strong>
+                        <strong>Teaching <span th:text="${tutor.username}"></span>:</strong>
                         <br/>
-                        <ul th:each="skill : ${tutor.skills}">
+                        <ul th:each="skill : ${teacher.skills}">
                             <li>
-                                <a th:href="@{/skill/viewSkill(skillId=${skill.id},username=${tutor.username})}">
+                                <a th:href="@{/skill/viewSkill(skillId=${skill.id},username=${teacher.username})}">
                                     <span th:text="${skill.name}"></span></a>
                             </li>
 
