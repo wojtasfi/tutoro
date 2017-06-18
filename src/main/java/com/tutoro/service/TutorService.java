@@ -92,4 +92,50 @@ public class TutorService {
 
         return teacherTutor;
     }
+
+    public Tutor findByUsernameWithSkillsToughtByTeacher(String teacher, String student) {
+        Tutor teacherTutor = tutorRepository.findByUsername(teacher);
+        Tutor studentTutor = tutorRepository.findByUsername(student);
+
+        Set<Skill> toughtSkills = new HashSet<>();
+
+        for (LearnRelation relation : studentTutor.getStudentRelations()) {
+            if (relation.getTeacher().equals(teacherTutor)) {
+                toughtSkills.add(relation.getSkill());
+            }
+        }
+
+        teacherTutor.setSkills(toughtSkills);
+
+        return teacherTutor;
+    }
+
+    private List<Tutor> findAllStudents(String username) {
+        List<Tutor> students = new ArrayList<>();
+        Set<LearnRelation> relations = tutorRepository.findByUsername(username).getTeacherRelations();
+
+        for (LearnRelation relation : relations) {
+            if (!students.contains(relation.getStudent())) {
+                students.add(relation.getStudent());
+            }
+        }
+
+        return students;
+    }
+
+    public List<Tutor> findAllStudentsWithLearningSkills(String username) {
+        List<Tutor> students = findAllStudents(username);
+
+        for (Tutor student : students) {
+            Set<Skill> studentSkills = new HashSet<>();
+            for (LearnRelation relation : student.getStudentRelations()) {
+                if (relation.getTeacher().getUsername().equals(username)) {
+                    studentSkills.add(relation.getSkill());
+                }
+            }
+            student.setSkills(studentSkills);
+        }
+
+        return students;
+    }
 }

@@ -91,4 +91,33 @@ public class LearnRelationController {
 
     }
 
+    @RequestMapping(value = "/showStudents", method = RequestMethod.GET)
+    public String showStudents(@RequestParam String username, Model model) {
+        List<Tutor> students = tutorService.findAllStudentsWithLearningSkills(username);
+        LOGGER.info("Teacher: " + username);
+        Tutor tutor = tutorService.findByUsername(username);
+
+        model.addAttribute("students", students);
+        model.addAttribute("tutor", tutor);
+
+        return "students";
+
+    }
+
+    @RequestMapping(value = "/showStudent", method = RequestMethod.GET)
+    public String showStudent(@RequestParam String teacher, @RequestParam String student, Model model) {
+
+        LOGGER.info("Teacher: " + teacher);
+        LOGGER.info("Student: " + student);
+
+        Tutor tutor = tutorService.findByUsernameWithSkillsToughtByTeacher(teacher, student);
+        Tutor studentTutor = tutorService.findByUsername(student);
+
+        model.addAttribute("student", studentTutor);
+        model.addAttribute("tutor", tutor);
+
+        return "student";
+
+    }
+
 }
