@@ -1,12 +1,13 @@
 package com.tutoro.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by wojci on 5/23/2017.
  */
 @Entity
-public class LearnRelation {
+public class LearnRelation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,5 +52,15 @@ public class LearnRelation {
 
     public void setSkill(Skill skill) {
         this.skill = skill;
+    }
+
+    @Override
+    public String toString() {
+        return "LearnRelation{" +
+                "id=" + id +
+                ", teacher=" + teacher.getUsername() +
+                ", student=" + student.getUsername() +
+                ", skill=" + skill.getName() +
+                '}';
     }
 }

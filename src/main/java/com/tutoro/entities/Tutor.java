@@ -1,5 +1,7 @@
 package com.tutoro.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,20 +18,25 @@ public class Tutor {
     private String name;
     private String lastName;
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
     private String skype;
     private String story;
 
     @Lob
+    @JsonIgnore
     private byte[] profilePic;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER)
     private Set<Skill> skills = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private Set<LearnRelation> teacherRelations = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
     private Set<LearnRelation> studentRelations = new HashSet<>();
 
